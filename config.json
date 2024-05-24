@@ -3,6 +3,7 @@
     "api_secret": "Your_api_secret",
     "base_url": "https://api.coinbase.com",
     "trade_interval_hours": 12,
+    "check_fill_time": 5,
     "take_profit_percent": 20,
     "stop_loss_percentages": {
         "100+": 5,
@@ -14,7 +15,7 @@
     "cryptocurrencies": [
         "BTC",
         "ETH",
-        "SHIBA",
+        "SHIB",
         "DOGE"
    ],
     "sandbox_mode": false,
