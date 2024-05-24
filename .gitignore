@@ -6,3 +6,6 @@ test_scripts.py
 account_params.py
 main_test.py
 bot.log
+market_data.pkl
+order_ids.pkl
+position_data.pkl
