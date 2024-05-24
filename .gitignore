@@ -3,3 +3,5 @@
 
 # Ignore specific files
 test_scripts.py
+account_params.py
+main_test.py
