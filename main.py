@@ -177,7 +177,12 @@ def main():
             # Uncomment below if account is funded
             # time.sleep(3600)  # Wait for 1 hour before trying again
             # continue
-        
+
+        # Flags to track updates
+        market_data_updated = False
+        position_data_updated = False
+        order_ids_updated = False        
+
         for crypto in config['cryptocurrencies']:
             try:
                 start_date = get_unix_time(config['start_date'])
@@ -218,6 +223,11 @@ def main():
                     order_ids[crypto] = {'limit_order_id': limit_order_id, 
                                          'order_time': datetime.now(),
                                          'client_order_id': client_order_id}
+                    
+                    market_data_updated = True
+                    position_data_updated = True
+                    order_ids_updated = True
+
                 else:
                     # Get position size and create dictionary
                     pos_size = calculate_position_size(balance, last_price, config['max_trade_amount'])
@@ -236,11 +246,18 @@ def main():
             except Exception as e:
                 logging.error(f"Error processing {crypto}: {str(e)}")
         
-        # Save updated data
-        save_dict_to_file(market_data, 'data/market_data.pkl')
-        save_dict_to_file(position_data, 'data/position_data.pkl')
-        save_dict_to_file(order_ids, 'data/order_ids.pkl')
+            # Save updated data only if there are changes
+            if market_data_updated:
+                save_dict_to_file(market_data, 'data/market_data.pkl')
+                logging.info('market_data saved')
+            if position_data_updated:
+                save_dict_to_file(position_data, 'data/position_data.pkl')
+                logging.info('position data saved')
+            if order_ids_updated:
+                save_dict_to_file(order_ids, 'dataorder_ids.pkl')
+                logging.info('order ids saved')
 
+        # Check for trade fills
         fill_dict = {}
         for crypto in config['cryptocurrencies']:
             time_now = datetime.now()

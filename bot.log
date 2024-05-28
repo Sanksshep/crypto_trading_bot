@@ -7850,3 +7850,613 @@ INFO:root:Calculating position size with balance 0.0, crypto price 68790.09, and
 INFO:root:Loading config
 INFO:root:Fetching market data for ETH-USD
 INFO:root:Loading config
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16454, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.43, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68158.2, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.51, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.613e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1645, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68159.75, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.51, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.611e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16447, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68159.75, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.51, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.611e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16447, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68159.75, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3890.51, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.611e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16447, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67998.58, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3876.87, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.596e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16406, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67998.58, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3876.87, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.596e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16406, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67998.58, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3876.87, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.596e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16429, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68049.99, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.599e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16425, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16426, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16426, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16426, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16426, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 68125.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3891.16, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.581e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16426, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67935.74, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3879.36, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.57e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16356, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Starting main trading bot
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67739.57, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3864.8, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.565e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.16321, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching account balance
+INFO:root:Account balance: 0.0 USD
+ERROR:root:Insufficient balance, skipping trading cycle. Deposit funds or close positions
+INFO:root:Fetching market data for BTC-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 67759.25, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for ETH-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 3862.48, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for SHIB-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 2.569e-05, and max trade amount 50
+INFO:root:Loading config
+INFO:root:Fetching market data for DOGE-USD
+INFO:root:Loading config
+INFO:root:Calculating position size with balance 0.0, crypto price 0.1629, and max trade amount 50
+INFO:root:Loading config

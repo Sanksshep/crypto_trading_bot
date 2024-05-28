@@ -9,3 +9,4 @@ bot.log
 market_data.pkl
 order_ids.pkl
 position_data.pkl
+bot.log
