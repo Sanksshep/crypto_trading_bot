@@ -5,8 +5,21 @@
 test_scripts.py
 account_params.py
 main_test.py
+main_old.py
 bot.log
-market_data.pkl
-order_ids.pkl
-position_data.pkl
-bot.log
+scratch.py
+backtest_v*.py
+model_utils.py
+main_basic.py
+main_basic_test.py
+backtest_reg_v0.py
+backtest_clf_v0.py
+__pycache__/main_basic.cpython-310.pyc
+__pycache__/ml_logic.cpython-310.pyc
+__pycache__/model_utils.cpython-310.pyc
+__pycache__/utils.cpython-310.pyc
+
+# Ignore specific folders
+/images
+/local_folder
+/__pycache__
