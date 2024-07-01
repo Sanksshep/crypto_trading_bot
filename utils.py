@@ -1,12 +1,10 @@
 # Load packages
 from coinbase.rest import RESTClient
-from coinbase import jwt_generator
 import json
 import time
 import logging
 import requests
 from datetime import datetime, timedelta
-from ml_logic import feature_engineering
 import pandas as pd
 import pickle
 import os
@@ -15,6 +13,8 @@ import requests
 import pandas as pd
 import joblib
 import time
+from sklearn.model_selection import BaseCrossValidator
+import yfinance as yf
 
 
 # Functions
@@ -316,3 +316,79 @@ def fetch_accounts(client):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+# Rolling Time Series Split for ML
+class RollingTimeSeriesSplit(BaseCrossValidator):
+    def __init__(self, n_splits, train_size, test_size):
+        self.n_splits = n_splits
+        self.train_size = train_size
+        self.test_size = test_size
+
+    def split(self, X, y=None, groups=None):
+        n_samples = len(X)
+        indices = np.arange(n_samples)
+        for i in range(self.n_splits):
+            start_train = i * self.test_size
+            end_train = start_train + self.train_size
+            start_test = end_train
+            end_test = start_test + self.test_size
+            
+            if end_test > n_samples:
+                break
+                
+            yield indices[start_train:end_train], indices[start_test:end_test]
+
+    def get_n_splits(self, X=None, y=None, groups=None):
+        return self.n_splits
+
+
+def load_data(symbols):
+    """
+    Load historical data for training models.
+    Placeholder function to be implemented.
+    """
+    try:
+        data = pd.read_csv('data/price_data.csv', index_col='date')
+    
+    except FileNotFoundError:
+        sym_str = " ".join([f'{x}-USD' for x in symbols])
+        start_date = '2020-05-01'
+        end_date = '2024-04-30'
+
+        data = yf.download(sym_str, start_date, end_date)['Close']
+        data.columns.name = None
+        data.columns = [x.replace('-USD', '').lower() for x in data.columns]
+        data.index.name = 'date'
+
+        data.to_csv('data/price_data.csv')
+
+    logging.info("Loading historical data")
+    # Placeholder: Replace with actual data loading logic
+    return data
+
+def feature_engineering(data):
+    """
+    Generate features from raw data.
+    """
+    logging.info("Starting feature engineering")
+    # if 'Close' not in data.columns:
+    #     logging.error("Market data does not contain 'close' column")
+    #     return pd.DataFrame()  # Return empty DataFrame if 'close' column is missing
+
+    # if len(data) < 15:
+    #     logging.warning("Not enough data points to calculate SMA and EMA")
+    #     return pd.DataFrame()  # Return empty DataFrame if not enough data points
+
+    cols = data.columns.to_list()
+
+    for col in cols:
+        data[f'{col}_sma'] = data[col].rolling(window=15).mean()
+        data[f'{col}_ema'] = data[col].ewm(span=15, adjust=False).mean()
+        data[f'{col}_ret'] = np.log(data[col]/data[col].shift())
+        data[f'{col}_1d_ret'] = data[f'{col}_ret'].shift(-1)
+        data[f'{col}_1d_target'] = np.where(data[f'{col}_1d_ret'] >= 0, 1, 0)
+      
+    logging.info("Completed feature engineering")
+    logging.info("Saving feature set ")
+    data.to_csv('data/feature_set.csv', index=False)
+
+    return data

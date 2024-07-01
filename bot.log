@@ -102,3 +102,14 @@ INFO:root:Maintaining position in SHIB. No change to targets.
 INFO:root:Maintaining position in DOGE. No change to targets.
 INFO:root:Saving trade logs
 INFO:root:Saving positions
+INFO:root:Loading config at 2024-07-01 11:06:54.992553
+INFO:root:Loading config at 2024-07-01 11:08:55.238725
+INFO:root:Loading config at 2024-07-01 11:10:31.862751
+INFO:root:Loading config at 2024-07-01 11:12:11.503726
+INFO:root:Load historical data
+INFO:root:Generating daily report
+INFO:root:Daily report generated: reports/daily_report_2024-07-01.json
+INFO:root:Saved portfolio
+INFO:root:Loading config at 2024-07-01 11:29:33.047160
+INFO:root:Fetching account balance
+INFO:root:Account balance: 97.4871243706418 USD
