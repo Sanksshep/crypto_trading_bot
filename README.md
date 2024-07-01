@@ -16,31 +16,31 @@ This is an automated crypto trading bot designed to trade on Coinbase using the 
 - [Coinbase Advanced API Python SDK](https://coinbase.github.io/coinbase-advanced-py/)
 
 ## Project Structure
-crypto_trading_bot/  
-├── config.json 
-├── main.py 
-├── utils.py 
-├── update_config.py 
-├── sandbox_test.py 
-├── daily_report.py 
-├── ml_logic.py 
-├── backtesting.py 
-├── bot.log 
-├── reports/ 
-│ └── daily_report_YYYY-MM-DD.json 
-│ └── total_gain_loss.png 
-│ └── daily_gain_loss.png 
-│ └── portfolio_df.csv 
-├── models/ 
-│ └── current_model.pkl 
-├── data/ 
-│ └── all_trade_logs.pkl 
-│ └── positions.pkl 
-│ └── portfolio_df.pkl 
-│ └── price_data.csv 
-│ └── feature_set.csv 
-│── requirements.txt 
-└── README.md 
+crypto_trading_bot/   
+├── config.json  
+├── main.py  
+├── utils.py  
+├── update_config.py  
+├── sandbox_test.py  
+├── daily_report.py  
+├── ml_logic.py  
+├── backtesting.py   
+├── bot.log  
+├── reports/  
+│ └── daily_report_YYYY-MM-DD.json   
+│ └── total_gain_loss.png  
+│ └── daily_gain_loss.png   
+│ └── portfolio_df.csv   
+├── models/  
+│ └── current_model.pkl   
+├── data/  
+│ └── all_trade_logs.pkl  
+│ └── positions.pkl  
+│ └── portfolio_df.pkl   
+│ └── price_data.csv  
+│ └── feature_set.csv   
+│── requirements.txt  
+└── README.md  
 
 
 ## Configuration
@@ -97,6 +97,9 @@ source ./venv/bin/activate
 - Go to [Coinbase Developers Platform](https://portal.cdp.coinbase.com/) to get API key and secret
 - Ensure Trade and Transfer are selected in API restrictions
 - Update `config.json` for API key and secret
+- `(venv) $ mkdir models`
+- `(venv) $ mkdir data`
+- `(venv) $ mkdir reports`
 - Run `ml_logic.py` to save model
 - Run `main.py` once daily
 - Run `daily_report.py` once daily
