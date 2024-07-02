@@ -15,7 +15,7 @@ import numpy as np
 import requests
 import joblib
 import time
-from main_basic import *
+from utils import *
 
 # Set Style
 plt.style.use('seaborn-v0_8')

@@ -45,8 +45,7 @@ crypto_trading_bot/
 
 ## Configuration
 
-### `config.json`
-Create a `config.json` file in the root directory with the following structure:
+1. Create a `config.json` file in the root directory with the following structure:
 
 2. Update Available Cryptocurrencies
 Run the update_config.py script to fetch and update the list of available cryptocurrencies:
@@ -96,6 +95,7 @@ source ./venv/bin/activate
 
 - Go to [Coinbase Developers Platform](https://portal.cdp.coinbase.com/) to get API key and secret
 - Ensure Trade and Transfer are selected in API restrictions
+- `(venv) $ cd crypto_trading_bot`
 - Update `config.json` for API key and secret
 - `(venv) $ mkdir models`
 - `(venv) $ mkdir data`
