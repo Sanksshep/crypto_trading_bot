@@ -44,36 +44,21 @@ crypto_trading_bot/
 
 ## Configuration
 
-1. Create a `config.json` file in the root directory with the following structure:
+1. `config.json` holds api keys, secrets, and important parameters
 
-2. Update Available Cryptocurrencies
-Run the update_config.py script to fetch and update the list of available cryptocurrencies:
-
-python update_config.py
+2. `update_config.py` updates `config.json` for current list of available cryptocurrencies:
 
 __Placeholder__ Currently not used
 
-3. Run the Main Trading Bot
-Run the main.py script to start the trading bot:
+3. `main.py` runs the main trading bot
 
-python main.py
-
-4. Backtest Models
-Run the backtesting.py script to backtest the models on historical data:
-
-python backtesting.py
+4. `backtesting.py` script to backtest the models on historical data:
 
 __Placeholder__ Currently not used
 
-5. Generate Reports
-Run the daily_report.py script to generate daily reports with graphs:
+5. `daily_report.py` generates daily and total gain and loss calculations with graphs
 
-python daily_report.py
-
-6. Test in Sandbox
-Run the sandbox_test.py script to test the trading bot in Coinbase's sandbox environment:
-
-python sandbox_test.py
+6. `sandbox_test.py` tests the trading bot in Coinbase's sandbox environment
 
 __Placeholder__ Currently not used. Sandbox environment not enabled for Coinbase Advanced API Python SDK 
 
@@ -96,9 +81,10 @@ source ./venv/bin/activate
 - Ensure Trade and Transfer are selected in API restrictions
 - `(venv) $ cd crypto_trading_bot`
 - Update `config.json` for API key and secret
-- `(venv) $ mkdir models`
-- `(venv) $ mkdir data`
-- `(venv) $ mkdir reports`
+- If folders models, data, and/or reports don't exist run:
+    - `(venv) $ mkdir models`
+    - `(venv) $ mkdir data`
+    - `(venv) $ mkdir reports`
 - Run `ml_logic.py` to save model
 - Run `main.py` once daily
 - Run `daily_report.py` once daily
