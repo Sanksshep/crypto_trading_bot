@@ -146,6 +146,7 @@ def generate_daily_report():
         df[new_cols] = df[new_cols].apply(pd.to_numeric, errors='coerce')
 
         # Add fees
+        df['fees'] = 0.0
         fees = calculate_fees(df)
         df['fees'] = fees
      
