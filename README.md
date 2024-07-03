@@ -36,7 +36,6 @@ crypto_trading_bot/
 ├── data/  
 │ └── all_trade_logs.pkl  
 │ └── positions.pkl  
-│ └── portfolio_df.pkl   
 │ └── price_data.csv  
 │ └── feature_set.csv   
 │── requirements.txt  

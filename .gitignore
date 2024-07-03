@@ -20,6 +20,12 @@ __pycache__/model_utils.cpython-310.pyc
 __pycache__/utils.cpython-310.pyc
 
 # Ignore specific folders
-/images
-/local_folder
-/__pycache__
+images/*
+local_folder/*
+__pycache__/*
+data/*
+!data/.gitkeep
+reports/*
+!reports/.gitkeep
+models/*
+!models/.gitkeep
