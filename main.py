@@ -53,7 +53,7 @@ def main():
     except FileNotFoundError:
         all_trade_logs = {}
         positions = {crypto: {'status': 'closed',
-                              'direction': 'flat', 
+                              'direction': 'FLAT', 
                               'price': 0, 
                               'size':0 , 
                               'profit_target': 0,
@@ -79,11 +79,10 @@ def main():
 
     # Generate predictions
     predictions = load_model_and_predict(mkt_data, MODEL_PATH)
-    # print(f'Predictions: {predictions}')
-
-    # Overwrite for time being
-    predictions = np.array([1,1,1,1])
-    # print(f'New predictions: {predictions}')
+    
+    # Overwrite predictions for testing. NOT FOR LIVE TRADING!
+    # predictions = np.array([1,1,1,1])
+    # predictions = np.zeros(4)
 
     # Generate signals
     signal_dict = {}
@@ -101,7 +100,7 @@ def main():
                                     current_position,
                                     direction)
             
-        _, _, mid = get_current_price(client, crypto)
+        _, _, mid = get_current_price(client, crypto, signal, threshold=1.0)
 
         signal_dict[crypto] = {'signal': signal,
                                'mid_price': mid}
@@ -113,8 +112,12 @@ def main():
     num_id = np.random.randint(1,500)
 
     for ix, crypto in enumerate(config['cryptocurrencies']):
+        # Create log_name
+        time_now = datetime.now()
+        log_name = crypto + ' - ' + time_now.strftime("%Y-%m-%d %H:%M:%S")
+
         try:
-            # If trade action     
+            # If Buy or Sell signal     
             if signal_dict[crypto]['signal'] in ['BUY', 'SELL']:
 
                 # Get position size
@@ -139,6 +142,9 @@ def main():
 
                     # Get mid price from dictionary
                     mid_price = signal_dict[crypto]['mid_price']
+
+                    # Get signal
+                    signal = signal_dict[crypto]['signal']
                     
                     # Execute trade and store ids
                     limit_order, trade_log, positions = execute_trade(client, 
@@ -159,48 +165,87 @@ def main():
                     else:
                         logging.error(f'{crypto} order failed')
                         
-                    all_trade_logs[crypto] = trade_log
+                    all_trade_logs[crypto].update(trade_log)
                     order_dict[crypto] = {'log_name': log_name,
                                             'order': limit_order
                     }
                 
                 # Insufficient funds
-                else: 
+                else:
                     trade_log[log_name] = {'orders': {'crypto':crypto,
                                 'action': signal,
                                 'client_order_id': client_order_id,
-                                'size': pos_size,
-                                'limit_price': mid_price,
+                                'size': None,
+                                'limit_price': None,
                                 'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
-                                'limit_order_id': np.nan,
+                                'limit_order_id': None,
                     }}
-                    all_trade_logs[crypto] = trade_log
+                    all_trade_logs[crypto].update(trade_log)
                     order_dict[crypto] = {'log_name': log_name,
-                                          'order': np.nan}
+                                          'order': None}
 
-            # If no trade
-            else:                
-                if positions[crypto]['direction'] == "LONG":
+            # If Hold signal
+            else:
+                trade_log = {}
+                # If open position                
+                if positions[crypto]['status'] == 'open':
                     # Update profit and loss targets if price has moved higher
                     if signal_dict[crypto]['mid_price'] > positions[crypto]['profit_target']:
                         positions[crypto]['profit_target'] = signal_dict[crypto]['mid_price'] * (1 + config['take_profit_percent'])
                         positions[crypto]['stop_loss_price'] = signal_dict[crypto]['mid_price'] * (1 - config['stop_loss_percentages'])
+                        trade_log[log_name] = {'orders': {'crypto':crypto,
+                                        'action': signal_dict[crypto]['signal'],
+                                        'client_order_id': None,
+                                        'size': None,
+                                        'limit_price': signal_dict[crypto]['mid_price'],
+                                        'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
+                                        'limit_order_id': None,
+                        }}
+                        all_trade_logs[crypto].update(trade_log)
+                        order_dict[crypto] = {'log_name': log_name,
+                                                'order': None}
                         logging.info(f"Maintaining position in {crypto}. Updating targets")
+                                        
                     # No update
                     else:
-                        logging.info(f"Maintaining position in {crypto}. No change to targets.")
+                        trade_log[log_name] = {'orders': {'crypto':crypto,
+                                        'action': signal_dict[crypto]['signal'],
+                                        'client_order_id': None,
+                                        'size': None,
+                                        'limit_price': signal_dict[crypto]['mid_price'],
+                                        'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
+                                        'limit_order_id': None,
+                        }}
+                        all_trade_logs[crypto].update(trade_log)
+                        order_dict[crypto] = {'log_name': log_name,
+                                                'order': None}
+                        logging.info(f"Maintaining position in {crypto}. No change to targets")
+
+                # If no open position update trade logs so no errors when running check order
+                else:
+                    trade_log[log_name] = {'orders': {'crypto':crypto,
+                                    'action': signal_dict[crypto]['signal'],
+                                    'client_order_id': None,
+                                    'size': None,
+                                    'limit_price': signal_dict[crypto]['mid_price'],
+                                    'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
+                                    'limit_order_id': None,
+                    }}
+                    all_trade_logs[crypto].update(trade_log)
+                    order_dict[crypto] = {'log_name': log_name,
+                                            'order': None}
+                    logging.info(f'No trade for {crypto}')
 
         except Exception as e:
             logging.error(f"Error processing {crypto}: {str(e)}")
 
         # Pause before executing next trade
-        time.sleep(5)
-    
+        # time.sleep(5)  
    
     # Wait a minute before checking order status
     time.sleep(60)
 
-    all_trade_logs = retry_check_order_status(client, 
+    all_trade_logs, positions = retry_check_order_status(client, 
                                           config['cryptocurrencies'],
                                           all_trade_logs,
                                           order_dict,

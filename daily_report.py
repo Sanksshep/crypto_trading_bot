@@ -35,15 +35,20 @@ def calculate_fees(data, num_trades = 0.0):
     fees = []
     for key in all_trade_logs.keys():
         trades = [str(x) for x in all_trade_logs[key].keys()]
-        if len(trades) > num_trades:
-            log_name = trades[-1]
-            fill_price = float(all_trade_logs[key][log_name]['fills']['price'])
-            size = float(all_trade_logs[key][log_name]['fills']['size'])
-            # fees 0.8% for taker
-            fee = round(fill_price * size * 0.008,2)
-            fees.append(fee)
-        else:
-            fees.append(0)
+        try:
+            if len(trades) > num_trades:
+                log_name = trades[-1]
+                fill_price = float(all_trade_logs[key][log_name]['fills']['price'])
+                size = float(all_trade_logs[key][log_name]['fills']['size'])
+                # fees 0.8% for taker
+                fee = round(fill_price * size * 0.008,2)
+                fees.append(fee)
+            else:
+                fees.append(0)
+        # If no trade and thus a hold for that log name, 'fills' is empty, hence KeyError
+        # Will need to fix
+        except KeyError:
+            pass
             
     return np.array(fees).sum()
 

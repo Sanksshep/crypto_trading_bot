@@ -10,7 +10,6 @@ import pickle
 import os
 import numpy as np
 import requests
-import pandas as pd
 import joblib
 import time
 from sklearn.model_selection import BaseCrossValidator
@@ -103,11 +102,13 @@ def get_trading_signal(prediction, profit_target, stop_loss_price, current_price
     """Generates trade signal based on prediction, profit/loss targets, current price, current posiiton,
         and direction of trade
         current_position: open, closed, default is closed if no position 
-        direction: LONG
+        direction: LONG, FLAT
     """
     if current_position == 'closed':
         if prediction == 1:
             return 'BUY'
+        else:
+            return 'HOLD'
         # Coin short selling not supported
 
     else:
@@ -118,22 +119,18 @@ def get_trading_signal(prediction, profit_target, stop_loss_price, current_price
                 return 'HOLD'
             else:
                 return 'SELL'
-        else:
-            if current_price >= stop_loss_price:
-                return 'BUY'
-            if prediction == 1:
-                return 'BUY'
-            else:
-                return 'HOLD'
             
 # Current price to execute trade
-def get_current_price(client, crypto, threshold=1):
+def get_current_price(client, crypto, signal, threshold=1):
     book = client.get_best_bid_ask(f'{crypto}-USD')
     price_increment = client.get_product(f'{crypto}-USD')['price_increment']
     price_increment = len(price_increment[2:])
     bid = float(book['pricebooks'][0]['bids'][0]['price'])
     ask = float(book['pricebooks'][0]['asks'][0]['price'])
-    mid = round(sum([bid,ask])/2*threshold, price_increment)
+    if signal == 'BUY':
+        mid = round(sum([bid,ask])/2*threshold, price_increment)
+    else:
+        mid = round(sum([bid,ask])/2*1/threshold, price_increment)
 
     return bid, ask, mid
 
@@ -142,15 +139,10 @@ def calculate_position_size(client, balance, crypto, crypto_price, config, posit
     """
     Calculate the position size based on balance, cryptocurrency price, and max trade amount.
     """
-    logging.info(f"Calculating position size with balance {balance}, \
-                 crypto price {crypto_price}, \
-                 and max trade amount {config['max_trade_amount']}")
+    logging.info(f"Calculating position size for {crypto} with balance {balance}, crypto price {crypto_price}, and max trade amount {config['max_trade_amount']}")
     
     if balance < config['max_trade_amount']:
-        logging.error("Insufficient balance, \
-                      balance less than max trade amount, \
-                      skipping trading cycle. \
-                      Deposit funds or close positions")
+        logging.error("Insufficient balance, balance less than max trade amount, skipping trading cycle. Deposit funds or close positions")
         return 0.0      
 
     else: 
@@ -196,6 +188,25 @@ def execute_trade(client, crypto, config, signal, position_size, client_order_id
         )
         target_return = (1 + config['take_profit_percent']/100)
         target_loss = (1 - config['stop_loss_percentages']["100+"]/100)
+
+        trade_log[log_name] = {'orders': {'crypto':crypto,
+                'action': signal,
+                'client_order_id': client_order_id,
+                'size': position_size,
+                'limit_price': limit_price,
+                'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
+                'limit_order_id': limit_order["order_id"],
+        }}
+
+        # This is tech debt. Assuming positions are executed. Will need to fix later
+        positions[crypto] = {'status': 'open', 
+                            'direction': 'LONG',
+                            'price': limit_price, 
+                            'size': position_size, 
+                            'profit_target': float(limit_price) * target_return,
+                            'stop_loss_price': float(limit_price) * target_loss
+        } 
+
     else: 
         limit_order = client.limit_order_gtc_sell(
             client_order_id=client_order_id,
@@ -206,47 +217,48 @@ def execute_trade(client, crypto, config, signal, position_size, client_order_id
         target_return = (1 - config['take_profit_percent']/100)
         target_loss = (1 + config['stop_loss_percentages']["100+"]/100)
 
-    trade_log[log_name] = {'orders': {'crypto':crypto,
-                 'action': signal,
-                 'client_order_id': client_order_id,
-                 'size': position_size,
-                 'limit_price': limit_price,
-                 'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
-                 'limit_order_id': limit_order["order_id"],
-    }}
+        trade_log[log_name] = {'orders': {'crypto':crypto,
+                    'action': signal,
+                    'client_order_id': client_order_id,
+                    'size': position_size,
+                    'limit_price': limit_price,
+                    'order_time': time_now.strftime("%Y-%m-%d %H:%M:%S"),
+                    'limit_order_id': limit_order["order_id"],
+        }}
 
-    positions[crypto] = {'status': 'open', 
-                         'direction': "LONG" if signal in ['BUY','HOLD'] else "FLAT",
-                         'price': limit_price, 
-                         'size': position_size , 
-                         'profit_target': float(limit_price) * target_return,
-                         'stop_loss_price': float(limit_price) * target_loss
-    } 
+        # This is tech debt. Assuming positions are executed. Only udpate status, direction, price
+        # Keep profit target and stop loss price the same in case it doesn't get executed. Then position saved and next day maintain risk management
+        # Will need to fix later
+        positions[crypto]['status'] = 'closed' 
+        positions[crypto]['dirction'] = 'FLAT'
+        positions[crypto]['price'] = limit_price 
 
     return limit_order, trade_log, positions
 
 # Function to check if trades are filled
 def check_order_status(client, crypto, logged_trade, positions):
     order_id = logged_trade['orders']['limit_order_id']
-    order = client.get_order(order_id)
-    if order['order']['status'] == 'FILLED':
-        fill = client.get_fills(order_id, f'{crypto}-USD')['fills'][0]
-        fill_dict = {'fills': {'filled': True, 
-                                'size': fill['size'],
-                                'price': fill['price'],
-                                'time': fill['sequence_timestamp']}
-        }
-        positions[crypto]['status'] = 'open'
-        positions[crypto]['direction'] = 'LONG'
-        logged_trade.update(fill_dict)
-        logging.info(f"{crypto} filled at {fill['sequence_timestamp']}")
+    if order_id is not None:
+        order = client.get_order(order_id)
+        if order['order']['status'] == 'FILLED':
+            fill = client.get_fills(order_id, f'{crypto}-USD')['fills'][0]
+            fill_dict = {'fills': {'filled': True, 
+                                    'size': fill['size'],
+                                    'price': fill['price'],
+                                    'time': fill['sequence_timestamp']}
+            }
+            logged_trade.update(fill_dict)
+            positions[crypto]['price'] = fill['price']
+            logging.info(f"{crypto} filled at {fill['sequence_timestamp']}")
 
-        return logged_trade, positions
+            return logged_trade, positions
+        else:
+            raise ValueError("Order not filled")
     else:
-        return ValueError("Order not filled")
+        raise ValueError("No order")
 
 # Function to cancel order
-def cancel_order(client, crypto, logged_trade, order_id):
+def cancel_order(client, crypto, logged_trade, order_id, positions):
     client.cancel_orders(order_ids=[order_id])
     logging.info(f'{crypto} not filled after 3 attempts. Cancelling order')
     time_now = datetime.now()
@@ -256,27 +268,47 @@ def cancel_order(client, crypto, logged_trade, order_id):
                                 'price': 0.0,
                                 'time': time_now}
     }
+    # If cancelled order then if position was open and trying to close, status --> 'closed' in 
+    # execute trade. But cancelled, so overwrite status and direction back to open and LONG
+    # This is tech debt because price, size, et al. will be for trade that didn't get filled
+    # Will need to fix eventually
+    if positions[crypto]['status'] == 'closed':
+        positions[crypto]['status'] = 'open'
+        positions[crypto]['direction'] = 'LONG'
+    # If position was closed/FLAT and trying to open/LONG, then overwrite back to closed/FLAT
+    else:
+        positions[crypto] = {'status': 'closed',
+                              'direction': 'FLAT', 
+                              'price': 0, 
+                              'size':0 , 
+                              'profit_target': 0,
+                              'stop_loss_price': 0
+                            }
+
     logged_trade.update(fill_dict)
-    return logged_trade
+    return logged_trade, positions
 
 def retry_check_order_status(client, cryptos, all_trade_logs, order_dict, positions, delay_between_checks=5):
-    if len(order_dict) > 0:
+    cryptos_with_orders = [crypto for crypto in cryptos if order_dict[crypto]['order'] is not None]
+    
+    if len(cryptos_with_orders) > 0:
         max_attempts = 3
-        attempts = {crypto: 0 for crypto in cryptos}
-        errors = {crypto: False for crypto in cryptos}
+        attempts = {crypto: 0 for crypto in cryptos_with_orders}
+        errors = {crypto: False for crypto in cryptos_with_orders}
+        filled = {crypto: False for crypto in cryptos_with_orders}
         
         for attempt in range(max_attempts):
-            for crypto in cryptos:
-                if attempts[crypto] < max_attempts:
+            for crypto in cryptos_with_orders:
+                if attempts[crypto] < max_attempts and not filled[crypto]:
                     crypto_order = order_dict[crypto]['log_name']
                     logged_trade = all_trade_logs[crypto][crypto_order]
                     try:
                         logged_trade, positions = check_order_status(client, crypto, logged_trade, positions)
                         all_trade_logs[crypto][crypto_order] = logged_trade
                         errors[crypto] = False
+                        filled[crypto] = True
                     except ValueError as e:
-                        logging.error(f"Attempt {attempt + 1} failed for {crypto}: {e}")
-                        # logging.warning(f"Attempt {attempt + 1} failed for {crypto}: {e}")
+                        logging.warning(f"Attempt {attempt + 1} failed for {crypto}: {e}")
                         errors[crypto] = True
                     finally:
                         attempts[crypto] += 1
@@ -284,16 +316,15 @@ def retry_check_order_status(client, cryptos, all_trade_logs, order_dict, positi
             time.sleep(delay_between_checks)
 
         for crypto, error in errors.items():
-            if error:
+            if error and order_dict[crypto]['order'] is not None:
                 crypto_order = order_dict[crypto]['log_name']
                 logged_trade = all_trade_logs[crypto][crypto_order]
-                retry_order_info = order_dict[crypto]['limit_order']
-                logged_trade = cancel_order(client, crypto, logged_trade, retry_order_info)
+                retry_order_info = order_dict[crypto]['order']['order_id']
+                logged_trade, positions = cancel_order(client, crypto, logged_trade, retry_order_info, positions)
                 all_trade_logs[crypto][crypto_order] = logged_trade
         
-        return all_trade_logs
+        return all_trade_logs, positions
     else:
-        # logging.info('No trades')
         logging.info('No trades')
         return all_trade_logs
 
@@ -392,3 +423,15 @@ def feature_engineering(data):
     data.to_csv('data/feature_set.csv', index=False)
 
     return data
+
+# Find tuples
+def contains_tuple(d):
+    if isinstance(d, dict):
+        for key, value in d.items():
+            if isinstance(value, tuple):
+                return True
+            elif isinstance(value, dict):
+                if contains_tuple(value):
+                    return True
+    return False
+                   
