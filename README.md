@@ -89,5 +89,11 @@ source ./venv/bin/activate
 - Run `main.py` once daily
 - Run `daily_report.py` once daily
 
+## To run the report
+cd into crypt_trading_bot-sm-sandbox and then from the terminal run
+python -m http.server
+then open a new window in your web browser and enter
+http://localhost:8000/index.html
+
 ## IMPORTANT DISCLAIMER
 All code, analyses, commentary, outputs, predictions, and results in this repository are provided as is, are for educational and informational purposes only, and do not constitute investment recommendations, offers to buy or sell securities, or recommendations on how to buy or sell securities. Past performance is not a predictor of future results. There is a significant risk of loss in investing and trading. Cryto currencies are highly speculative assets and not suitable for most investors. Derivatives pose a significant risk of loss with the potential to lose in excess of portfolio value. Users of this repository assume all risks and fully indemnify the repository's creator for any and all uses of the code, analyses, outputs, predictions, and/or results. 
