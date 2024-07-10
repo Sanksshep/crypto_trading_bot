@@ -91,10 +91,6 @@ source ./venv/bin/activate
 - Run `ml_logic.py` to save model
 - Run `main.py` once daily
 - Run `daily_report.py` once daily
-- From terminal run
-``` python -m http.server```
-- Then open web broswer and type
-```http://localhost:8000/index.html``` 
 
 ## To run the report
 - cd into crypt_trading_bot-sm-sandbox and then from the terminal run
