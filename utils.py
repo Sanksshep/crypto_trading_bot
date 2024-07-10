@@ -230,7 +230,7 @@ def execute_trade(client, crypto, config, signal, position_size, client_order_id
         # Keep profit target and stop loss price the same in case it doesn't get executed. Then position saved and next day maintain risk management
         # Will need to fix later
         positions[crypto]['status'] = 'closed' 
-        positions[crypto]['dirction'] = 'FLAT'
+        positions[crypto]['direction'] = 'FLAT'
         positions[crypto]['price'] = limit_price 
 
     return limit_order, trade_log, positions

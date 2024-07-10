@@ -119,8 +119,8 @@ def generate_daily_report():
             # Create report
             report = {
                 "date": DATE,
-                "total_gain_loss": df['total_pnl'].iloc[-1],
-                "daily_gain_loss": df['daily_pnl'].iloc[-1],
+                "total_gain_loss": {date: value for date,value in df.reset_index()[['date', 'total_pnl']].dropna().values},
+                "daily_gain_loss": {date: value for date,value in df.reset_index()[['date', 'daily_pnl']].dropna().values},
                 "portfolio_distribution": pf[['asset','allocation']].set_index('asset').to_dict()['allocation'],
                 "daily_transaction_fees": df['fees'].iloc[-1],
                 "total_transations_fees": df['fees'].sum()

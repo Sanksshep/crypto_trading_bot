@@ -26,6 +26,7 @@ crypto_trading_bot/
 ├── ml_logic.py  
 ├── backtesting.py   
 ├── bot.log  
+├── index.html  
 ├── reports/  
 │ └── daily_report_YYYY-MM-DD.json   
 │ └── total_gain_loss.png  
@@ -46,21 +47,23 @@ crypto_trading_bot/
 
 1. `config.json` holds api keys, secrets, and important parameters
 
-2. `update_config.py` updates `config.json` for current list of available cryptocurrencies:
-
-__Placeholder__ Currently not used
+2. `ml_logic.py` the main file to train and save model
 
 3. `main.py` runs the main trading bot
 
-4. `backtesting.py` script to backtest the models on historical data:
+4. `daily_report.py` generates daily and total gain and loss calculations with graphs
 
-__Placeholder__ Currently not used
+5. `index.html` file to populate web page with output of `daily_report.py`
 
-5. `daily_report.py` generates daily and total gain and loss calculations with graphs
 
-6. `sandbox_test.py` tests the trading bot in Coinbase's sandbox environment
+## Other placeholder files not currently being used
 
-__Placeholder__ Currently not used. Sandbox environment not enabled for Coinbase Advanced API Python SDK 
+1. `update_config.py` updates `config.json` for current list of available cryptocurrencies:
+
+2. `backtesting.py` script to backtest the models on historical data:
+
+3. `sandbox_test.py` tests the trading bot in Coinbase's sandbox environment
+
 
 Logging
 All events and errors are logged in bot.log.
@@ -88,6 +91,10 @@ source ./venv/bin/activate
 - Run `ml_logic.py` to save model
 - Run `main.py` once daily
 - Run `daily_report.py` once daily
+- From terminal run
+``` python -m http.server```
+- Then open web broswer and type
+```http://localhost:8000/index.html``` 
 
 ## To run the report
 - cd into crypt_trading_bot-sm-sandbox and then from the terminal run
