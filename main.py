@@ -18,6 +18,7 @@ import time
 from utils import * 
 
 # Params
+DATE = datetime.now().strftime("%Y-%m-%d")
 MODEL_PATH = 'models/current_model.pkl'
 TRADE_LOG_PATH = 'data/all_trade_logs.pkl'
 POSITION_PATH = 'data/positions.pkl'
@@ -42,9 +43,7 @@ def main():
     # Check balance
     balance = get_account_balance(client)
     if balance == 0:
-        logging.error("Insufficient balance, zero balance, skipping trading cycle. Deposit funds or close positions")
-    if balance < config['max_trade_amount']:
-        logging.error("Insufficient balance, balance less than max trade amount, skipping trading cycle. Deposit funds or close positions")
+        logging.error("Insufficient balance for long trades, zero balance. Deposit funds or close positions")
 
     # Load trade logs and positions
     try:
@@ -81,7 +80,7 @@ def main():
     predictions = load_model_and_predict(mkt_data, MODEL_PATH)
     
     # Overwrite predictions for testing. NOT FOR LIVE TRADING!
-    # predictions = np.array([1,1,1,1])
+    # predictions = np.array([0,0,1,1])
     # predictions = np.zeros(4)
 
     # Generate signals
@@ -102,10 +101,10 @@ def main():
             
         _, _, mid = get_current_price(client, crypto, signal, threshold=1.0)
 
-        signal_dict[crypto] = {'signal': signal,
-                               'mid_price': mid}
+        signal_dict[crypto] = {'signal': signal, 'mid_price': mid}
         
-    # print(f'Signals: {signal_dict}')
+    save_dict_to_file(signal_dict,f"data/signal_dict_{DATE}.pkl")
+    logging.info('Saving signals')
 
     # Generate trades
     order_dict = {}
@@ -144,7 +143,7 @@ def main():
                     mid_price = signal_dict[crypto]['mid_price']
 
                     # Get signal
-                    signal = signal_dict[crypto]['signal']
+                    signal = signal_dict[crypto]['signal']       
                     
                     # Execute trade and store ids
                     limit_order, trade_log, positions = execute_trade(client, 
@@ -159,16 +158,19 @@ def main():
                                                                         positions)
                     
                     if limit_order['success']:
-                        balance = balance - pos_size * mid_price
+                        if signal == "BUY":
+                            balance -= pos_size * mid_price
+                        else:
+                            balance += pos_size * mid_price
+
                         logging.info(f'{crypto} order placed successfully')
       
                     else:
                         logging.error(f'{crypto} order failed')
                         
+                    save_dict_to_file(limit_order, f"data/{crypto}_limit_order_{DATE}.pkl")
                     all_trade_logs[crypto].update(trade_log)
-                    order_dict[crypto] = {'log_name': log_name,
-                                            'order': limit_order
-                    }
+                    order_dict[crypto] = {'log_name': log_name,'order': limit_order}
                 
                 # Insufficient funds
                 else:
@@ -181,8 +183,7 @@ def main():
                                 'limit_order_id': None,
                     }}
                     all_trade_logs[crypto].update(trade_log)
-                    order_dict[crypto] = {'log_name': log_name,
-                                          'order': None}
+                    order_dict[crypto] = {'log_name': log_name, 'order': None}
 
             # If Hold signal
             else:
@@ -202,8 +203,7 @@ def main():
                                         'limit_order_id': None,
                         }}
                         all_trade_logs[crypto].update(trade_log)
-                        order_dict[crypto] = {'log_name': log_name,
-                                                'order': None}
+                        order_dict[crypto] = {'log_name': log_name, 'order': None}
                         logging.info(f"Maintaining position in {crypto}. Updating targets")
                                         
                     # No update
@@ -217,8 +217,7 @@ def main():
                                         'limit_order_id': None,
                         }}
                         all_trade_logs[crypto].update(trade_log)
-                        order_dict[crypto] = {'log_name': log_name,
-                                                'order': None}
+                        order_dict[crypto] = {'log_name': log_name, 'order': None}
                         logging.info(f"Maintaining position in {crypto}. No change to targets")
 
                 # If no open position update trade logs so no errors when running check order
@@ -232,18 +231,22 @@ def main():
                                     'limit_order_id': None,
                     }}
                     all_trade_logs[crypto].update(trade_log)
-                    order_dict[crypto] = {'log_name': log_name,
-                                            'order': None}
-                    logging.info(f'No trade for {crypto}')
+                    order_dict[crypto] = {'log_name': log_name, 'order': None}
+                    logging.info(f'No trade for {crypto}')           
 
         except Exception as e:
             logging.error(f"Error processing {crypto}: {str(e)}")
 
         # Pause before executing next trade
-        # time.sleep(5)  
+        # time.sleep(5)
+
+    save_dict_to_file(all_trade_logs, f"data/all_trade_logs_{DATE}.pkl")
+    save_dict_to_file(positions, f"data/positions_{DATE}.pkl")
+    save_dict_to_file(order_dict, f"data/orders_dict_{DATE}.pkl")
+    logging.info("Saving daily pickle files")    
    
     # Wait a minute before checking order status
-    time.sleep(60)
+    time.sleep(120)
 
     all_trade_logs, positions = retry_check_order_status(client, 
                                           config['cryptocurrencies'],
@@ -254,6 +257,7 @@ def main():
     
     save_dict_to_file(all_trade_logs, TRADE_LOG_PATH)
     save_dict_to_file(positions, POSITION_PATH)
+
     logging.info('Saving trade logs')
     logging.info('Saving positions')
 

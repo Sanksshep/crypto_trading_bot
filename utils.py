@@ -103,22 +103,27 @@ def get_trading_signal(prediction, profit_target, stop_loss_price, current_price
         and direction of trade
         current_position: open, closed, default is closed if no position 
         direction: LONG, FLAT
+        Coinbase does not currently support short selling
     """
     if current_position == 'closed':
         if prediction == 1:
             return 'BUY'
         else:
             return 'HOLD'
-        # Coin short selling not supported
 
     else:
         if direction == 'LONG':
             if current_price <= stop_loss_price:
                 return 'SELL'
-            if prediction == 1:                 
+            elif prediction == 1:                 
                 return 'HOLD'
             else:
                 return 'SELL'
+        elif direction == 'FLAT':
+            logging.info("Check positions file status and direction don't match")
+            return 'HOLD'
+        else:
+            return 'HOLD'
             
 # Current price to execute trade
 def get_current_price(client, crypto, signal, threshold=1):
@@ -139,29 +144,36 @@ def calculate_position_size(client, balance, crypto, crypto_price, config, posit
     """
     Calculate the position size based on balance, cryptocurrency price, and max trade amount.
     """
-    logging.info(f"Calculating position size for {crypto} with balance {balance}, crypto price {crypto_price}, and max trade amount {config['max_trade_amount']}")
-    
-    if balance < config['max_trade_amount']:
-        logging.error("Insufficient balance, balance less than max trade amount, skipping trading cycle. Deposit funds or close positions")
-        return 0.0      
+    # Find status: open/closed
+    cur_pos = positions[crypto]['status']
+    size_increment = client.get_product(f'{crypto}-USD')['base_increment']
+    size_increment = len(size_increment[2:])
+     
+    if cur_pos == 'closed':
+        
+        # If closed, then going long. Need to buy. Check if have enough capital
+        if balance < config['max_trade_amount']:
+            logging.error("Insufficient balance, balance less than max trade amount, skipping trading cycle. Deposit funds or close positions")
+            return 0.0      
 
-    else: 
-        cur_pos = positions[crypto]['status']
-
-        if cur_pos == 'closed':
-            size_increment = client.get_product(f'{crypto}-USD')['base_increment']
-            size_increment = len(size_increment[2:])
-
+        # If have enough capital    
+        else:
             position_size_by_balance = min(balance * config['position_size_limit'] / crypto_price, balance / crypto_price)
             position_size_by_balance = round(position_size_by_balance, size_increment)
             
             position_size_by_trade_amount = config['max_trade_amount'] / crypto_price
             position_size_by_trade_amount = round(position_size_by_trade_amount, size_increment)
 
+            logging.info(f"Calculated position size to BUY {crypto} with balance {balance}, crypto price {crypto_price}, and max trade amount {config['max_trade_amount']}")
+
             return min(position_size_by_balance, position_size_by_trade_amount)
-        
-        else:
-            return float(positions[crypto]['size'])
+
+    # If open, then want to sell position. Assume selling the whole position       
+    else:
+
+        logging.info(f"Calculated position size to SELL {crypto} with balance {balance}, crypto price {crypto_price}, and max trade amount {config['max_trade_amount']}")
+
+        return round(float(positions[crypto]['size']), size_increment)  
 
 # Function to execute trade
 def execute_trade(client, crypto, config, signal, position_size, client_order_id, trade_price, time_now, log_name, positions):
@@ -326,7 +338,7 @@ def retry_check_order_status(client, cryptos, all_trade_logs, order_dict, positi
         return all_trade_logs, positions
     else:
         logging.info('No trades')
-        return all_trade_logs
+        return all_trade_logs, positions
 
 # Load and save
 def save_dict_to_file(data, filename):
@@ -434,4 +446,32 @@ def contains_tuple(d):
                 if contains_tuple(value):
                     return True
     return False
-                   
+
+# Old Calculate desired position size
+# def calculate_position_size(client, balance, crypto, crypto_price, config, positions):
+#     """
+#     Calculate the position size based on balance, cryptocurrency price, and max trade amount.
+#     """
+#     logging.info(f"Calculating position size for {crypto} with balance {balance}, crypto price {crypto_price}, and max trade amount {config['max_trade_amount']}")
+    
+#     if balance < config['max_trade_amount']:
+#         logging.error("Insufficient balance, balance less than max trade amount, skipping trading cycle. Deposit funds or close positions")
+#         return 0.0      
+
+#     else: 
+#         cur_pos = positions[crypto]['status']
+
+#         if cur_pos == 'closed':
+#             size_increment = client.get_product(f'{crypto}-USD')['base_increment']
+#             size_increment = len(size_increment[2:])
+
+#             position_size_by_balance = min(balance * config['position_size_limit'] / crypto_price, balance / crypto_price)
+#             position_size_by_balance = round(position_size_by_balance, size_increment)
+            
+#             position_size_by_trade_amount = config['max_trade_amount'] / crypto_price
+#             position_size_by_trade_amount = round(position_size_by_trade_amount, size_increment)
+
+#             return min(position_size_by_balance, position_size_by_trade_amount)
+        
+#         else:
+#             return float(positions[crypto]['size'])
