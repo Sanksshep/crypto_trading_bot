@@ -44,6 +44,51 @@ def get_unix_time(datetime_string):
 
     return unix_time
 
+def get_filled_orders(client):
+    orders = client.list_orders()
+
+    # Select specific keys
+    order_keys = ['order_id', 'product_id', 'side', 'status', 'created_time', 
+                    'filled_size', 'average_filled_price', 'filled_value','total_fees', 
+                    'reject_reason', 'last_fill_time']
+
+    # Create data frame of orders
+    order_df = pd.concat([pd.DataFrame({key:order[key] if key in order else None for key in order_keys}, index=[ix]) 
+                            for ix, order in enumerate(orders['orders'])], axis=0)
+    order_df['last_fill_time'] = pd.to_datetime(order_df['last_fill_time'])
+
+    filled_df = order_df.loc[order_df['status'] == "FILLED"].reset_index(drop=True)
+    filled_df[['filled_size', 'average_filled_price', 'filled_value', 'total_fees']] = filled_df[['filled_size', 'average_filled_price', 'filled_value','total_fees']].apply(pd.to_numeric, errors='coerce')
+    return filled_df
+
+def get_positions(client, config, filled_orders):
+    
+    positions = {crypto: {} for crypto in config['cryptocurrencies']}
+
+    id = client.get_portfolios()['portfolios'][0]['uuid']
+    portfolio = client.get_portfolio_breakdown(id)
+    pf = pd.DataFrame(portfolio['breakdown']['spot_positions'])
+    for crypto in config['cryptocurrencies']:
+        if crypto in pf['asset'].unique():
+            size = pf.loc[pf['asset'] == crypto, 'total_balance_crypto'].astype(float).values[0]
+            buy_trades = filled_orders.loc[(filled_orders['product_id'] == f'{crypto}-USD') & (filled_orders['side'] =='BUY')].sort_values('last_fill_time', ascending=False)
+            price = buy_trades['average_filled_price'].iloc[0]
+            positions[crypto]['status'] = 'open'
+            positions[crypto]['direction'] = 'LONG'
+            positions[crypto]['price'] = price
+            positions[crypto]['size'] = size
+            positions[crypto]['profit_target'] = positions[crypto]['price'] * (1 + config['take_profit_percent']/100)
+            positions[crypto]['stop_loss_price'] = positions[crypto]['price'] * (1 - config['stop_loss_percentages']['100+']/100)
+        else: 
+            positions[crypto]['status'] = 'closed'
+            positions[crypto]['direction'] = 'FLAT' 
+            positions[crypto]['price'] = 0.0
+            positions[crypto]['size'] = 0.0
+            positions[crypto]['profit_target'] = 0.0
+            positions[crypto]['stop_loss_price'] = 0.0
+
+    return positions
+
 def get_market_data(client, config, crypto, start_date, end_date):
     """
     Fetch historical market data for a given cryptocurrency trading in USD using Coinbase API v3.

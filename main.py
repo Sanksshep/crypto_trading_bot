@@ -48,16 +48,21 @@ def main():
     # Load trade logs and positions
     try:
         all_trade_logs = load_dict_from_file(TRADE_LOG_PATH)
-        positions = load_dict_from_file(POSITION_PATH)
+        # positions = load_dict_from_file(POSITION_PATH)
     except FileNotFoundError:
         all_trade_logs = {}
-        positions = {crypto: {'status': 'closed',
-                              'direction': 'FLAT', 
-                              'price': 0, 
-                              'size':0 , 
-                              'profit_target': 0,
-                              'stop_loss_price': 0} for crypto in config['cryptocurrencies']
-        }
+        # positions = {crypto: {'status': 'closed',
+        #                       'direction': 'FLAT', 
+        #                       'price': 0, 
+        #                       'size':0 , 
+        #                       'profit_target': 0,
+        #                       'stop_loss_price': 0} for crypto in config['cryptocurrencies']
+        # }
+
+    filled_orders = get_filled_orders(client)
+
+    positions = get_positions(client, config, filled_orders)
+    logging.info("Loaded positions from portfolio")
 
     # Get dates in unix time for trading
     start_date = (datetime.now() - timedelta(days=250)).strftime('%Y-%m-%d %H:%M:%S')
@@ -80,7 +85,7 @@ def main():
     predictions = load_model_and_predict(mkt_data, MODEL_PATH)
     
     # Overwrite predictions for testing. NOT FOR LIVE TRADING!
-    # predictions = np.array([0,0,1,1])
+    # predictions = np.array([1,0,1,0])
     # predictions = np.zeros(4)
 
     # Generate signals
@@ -168,7 +173,7 @@ def main():
                     else:
                         logging.error(f'{crypto} order failed')
                         
-                    save_dict_to_file(limit_order, f"data/{crypto}_limit_order_{DATE}.pkl")
+                    save_dict_to_file(limit_order, f"data/{crypto.lower()}_limit_order_{DATE}.pkl")
                     all_trade_logs[crypto].update(trade_log)
                     order_dict[crypto] = {'log_name': log_name,'order': limit_order}
                 
@@ -248,7 +253,7 @@ def main():
     # Wait a minute before checking order status
     time.sleep(120)
 
-    all_trade_logs, positions = retry_check_order_status(client, 
+    all_trade_logs, _ = retry_check_order_status(client, 
                                           config['cryptocurrencies'],
                                           all_trade_logs,
                                           order_dict,
@@ -256,10 +261,10 @@ def main():
     )
     
     save_dict_to_file(all_trade_logs, TRADE_LOG_PATH)
-    save_dict_to_file(positions, POSITION_PATH)
+    # save_dict_to_file(positions, POSITION_PATH)
 
     logging.info('Saving trade logs')
-    logging.info('Saving positions')
+    # logging.info('Saving positions')
 
 if __name__ == '__main__':
     main()

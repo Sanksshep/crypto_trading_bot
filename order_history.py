@@ -19,7 +19,7 @@ def main():
     with open('config.json', 'r') as f:
         config = json.load(f)
 
-    # Keys and secrets
+    # Keys and secrets 
     api_key = config["api_key"]
     api_secret = config["api_secret"]
 
