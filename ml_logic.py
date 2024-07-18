@@ -10,8 +10,8 @@ import json
 import joblib
 import matplotlib.pyplot as plt
 from datetime import datetime
-from coinbase import jwt_generator 
-
+from warnings import simplefilter
+simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 # Params
 MODEL_PATH = 'models/current_model.pkl'
@@ -57,41 +57,45 @@ def test_model(data, model, symbols, train_end_date, model_test_date):
     
     # Create predictions
     y_pred = model.predict(X_test)
+    y_test_rav = y_test.values.ravel()
     
+    print(classification_report(y_test_rav, y_pred.ravel(), zero_division = np.nan))
+    
+    # Need to clean these up
     # Performance metrics
-    for ix, sym in enumerate(symbols):
-        print(sym)
-        print(classification_report(y_test[f'{sym.lower()}_1d_target'], y_pred[:,ix], zero_division = np.nan))
+    # for ix, sym in enumerate(symbols):
+    #     print(sym)
+    #     print(classification_report(y_test[f'{sym.lower()}_1d_target'], y_pred[:,ix], zero_division = np.nan))
 
     # Generate signals from model
-    df_perf = test_set[[f'{x.lower()}' for x in symbols]].copy()
+    # df_perf = test_set[[f'{x.lower()}' for x in symbols]].copy()
 
-    for ix, sym in enumerate(df_perf.columns):
-        df_perf[f'{sym}_ret'] = np.log(df_perf[sym]/df_perf[sym].shift(1))
-        df_perf[f'{sym}_pred'] = y_pred[:,ix]
-        df_perf[f'{sym}_signal'] = np.where(df_perf[f'{sym}_pred'].values  > 0, 1, -1)
-        df_perf[f'{sym}_strat_ret'] = df_perf[f'{sym}_signal'].shift(1) * df_perf[f'{sym}_ret']
-        df_perf[f'{sym}_bh'] = df_perf[f'{sym}_ret'].cumsum()*100
-        df_perf[f'{sym}_strat'] = df_perf[f'{sym}_strat_ret'].cumsum()*100
+    # for ix, sym in enumerate(df_perf.columns):
+    #     df_perf[f'{sym}_ret'] = np.log(df_perf[sym]/df_perf[sym].shift(1))
+    #     df_perf[f'{sym}_pred'] = y_pred[:,ix]
+    #     df_perf[f'{sym}_signal'] = np.where(df_perf[f'{sym}_pred'].values  > 0, 1, -1)
+    #     df_perf[f'{sym}_strat_ret'] = df_perf[f'{sym}_signal'].shift(1) * df_perf[f'{sym}_ret']
+    #     df_perf[f'{sym}_bh'] = df_perf[f'{sym}_ret'].cumsum()*100
+    #     df_perf[f'{sym}_strat'] = df_perf[f'{sym}_strat_ret'].cumsum()*100
 
-    syms = [x.lower() for x in symbols]
-    fig, axes = plt.subplots(2,2, sharey=True, sharex=True)
+    # syms = [x.lower() for x in symbols]
+    # fig, axes = plt.subplots(2,2, sharey=True, sharex=True)
 
-    for ix, ax in enumerate(fig.axes):
-        df_plot = df_perf[[f'{syms[ix]}_strat', f'{syms[ix]}_bh']]
-        ax.plot(df_plot.index, df_perf[[f'{syms[ix]}_strat', f'{syms[ix]}_bh']])
-        ax.tick_params(axis='x', rotation=45)
-        ax.legend(['Strategy', 'Buy and hold'])
-        ax.set_xlabel('')
-        if ix % 2 == 0:
-            ax.set_ylabel('Cumulative Return (%)')
-        ax.set_title(f'Strategy vs Buy and hold {syms[ix].upper()}-USD')
-    plt.savefig(f'models/model_test_{model_test_date}.png')
-    plt.show()
+    # for ix, ax in enumerate(fig.axes):
+    #     df_plot = df_perf[[f'{syms[ix]}_strat', f'{syms[ix]}_bh']]
+    #     ax.plot(df_plot.index, df_perf[[f'{syms[ix]}_strat', f'{syms[ix]}_bh']])
+    #     ax.tick_params(axis='x', rotation=45)
+    #     ax.legend(['Strategy', 'Buy and hold'])
+    #     ax.set_xlabel('')
+    #     if ix % 2 == 0:
+    #         ax.set_ylabel('Cumulative Return (%)')
+    #     ax.set_title(f'Strategy vs Buy and hold {syms[ix].upper()}-USD')
+    # plt.savefig(f'models/model_test_{model_test_date}.png')
+    # plt.show()
 
     # Get cumulative performance
-    ret_calc = [[f'{sym}_bh', f'{sym}_strat'] for sym in syms]
-    print(df_perf[[y for x in ret_calc for y in x]].iloc[-1])
+    # ret_calc = [[f'{sym}_bh', f'{sym}_strat'] for sym in syms]
+    # print(df_perf[[y for x in ret_calc for y in x]].iloc[-1])
 
 
 def main(run_test=True):

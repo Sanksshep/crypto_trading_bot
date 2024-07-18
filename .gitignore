@@ -14,6 +14,7 @@ main_basic.py
 main_basic_test.py
 backtest_reg_v0.py
 backtest_clf_v0.py
+backtest_clf_all_v0.py
 index_template.html
 __pycache__/main_basic.cpython-310.pyc
 __pycache__/ml_logic.cpython-310.pyc

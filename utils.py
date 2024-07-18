@@ -59,6 +59,7 @@ def get_filled_orders(client):
 
     filled_df = order_df.loc[order_df['status'] == "FILLED"].reset_index(drop=True)
     filled_df[['filled_size', 'average_filled_price', 'filled_value', 'total_fees']] = filled_df[['filled_size', 'average_filled_price', 'filled_value','total_fees']].apply(pd.to_numeric, errors='coerce')
+    
     return filled_df
 
 def get_positions(client, config, filled_orders):
